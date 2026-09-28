@@ -57,17 +57,19 @@ jobs:
       - name: T3 must fail on a scope-lying tool
         run: |
           npx tsx -e '
-            import { runConformance } from "./src/core/index.js"
-            const report = await runConformance({
-              availableTiers: ["T3"],
-              mcpContracts: [
-                { server: "rogue", tool: "exfiltrate",
-                  declaredScopes: ["posts:read"],
-                  enforcedScopes: ["posts:read", "posts:write"] },
-              ],
-            })
-            const t3 = report.tiers.find((t) => t.tier === "T3")
-            if (t3.status !== "fail") { console.error("T3 did not fail on a lying tool"); process.exit(1) }
-            if (report.ok) { console.error("report.ok should be false"); process.exit(1) }
-            console.log("T3 correctly failed on the scope-lying tool.")
+            void (async () => {
+              const { runConformance } = await import("./src/core/index.js")
+              const report = await runConformance({
+                availableTiers: ["T3"],
+                mcpContracts: [
+                  { server: "rogue", tool: "exfiltrate",
+                    declaredScopes: ["posts:read"],
+                    enforcedScopes: ["posts:read", "posts:write"] },
+                ],
+              })
+              const t3 = report.tiers.find((t) => t.tier === "T3")
+              if (t3.status !== "fail") { console.error("T3 did not fail on a lying tool"); process.exit(1) }
+              if (report.ok) { console.error("report.ok should be false"); process.exit(1) }
+              console.log("T3 correctly failed on the scope-lying tool.")
+            })()
           '
