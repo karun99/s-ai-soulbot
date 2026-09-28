@@ -9,6 +9,15 @@ continuity enforcement, and T0–T6 conformance tiers.
 
 Version 3.0.0 · MIT · [Sai Karun Nandipati](https://orcid.org/0009-0007-9218-9750)
 
+## Documentation
+
+The complete v3.0.0 document set lives in [`docs/`](docs/README.md): the [SRS](docs/SRS.md)
+(FR-001…FR-057, PR-001…PR-007, QR-001…QR-009) and Appendices A–H — glossary, data
+schemas (the executable form is `src/core/schema`), the STRIDE + LINDDUN threat
+matrix, the 23-precedent [Jātaka registry](docs/Appendix-D-Jataka-Registry.md),
+literature review, Muse/GrokBot case studies, the test protocol, and the deployment
+guide.
+
 ---
 
 ## The short version
