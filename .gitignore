@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.vercel/
+build/
+
+# Environment — never commit these
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Coverage and test artifacts
+coverage/
+*.lcov
+.vitest/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# TypeScript build info
+*.tsbuildinfo

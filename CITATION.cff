@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "S-AI SoulBot"
+abstract: >-
+  A consent-gated companion harness. A trust and resilience system that performs
+  browser tasks at the subject's cognitive level, in the subject's own measured
+  pattern, within the subject's authorized session — and knows when to stop, and
+  who to point to. Implements the Adaptive Human Personification Harness (AHPH)
+  core: a Sentinel authorization authority, a registry of 23 precedent-based
+  Jātaka guardrails, a six-parameter BehavioralSignature, consent continuity
+  enforcement, and T0-T6 conformance tiers.
+authors:
+  - family-names: Nandipati
+    given-names: Sai Karun
+    orcid: https://orcid.org/0009-0007-9218-9750
+    affiliation: "Department of Data Science and Artificial Intelligence, PB Siddhartha College of Arts and Science"
+keywords:
+  - consent
+  - agent harness
+  - browser automation
+  - behavioral biometrics
+  - guardrails
+  - case-law reasoning
+  - privacy engineering
+  - trust and resilience
+  - Neural Harness
+license: MIT
+date-released: "2026-09-26"
+version: "3.0.0"
+repository-code: "https://github.com/karun99/s-ai-soulbot"

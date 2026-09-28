@@ -1,0 +1,140 @@
+/*
+ * Design tokens.
+ *
+ * One accent hue, reserved for live state and the subject's own actions. The
+ * severity ramp is the only place a second hue is allowed, because severity is
+ * the one thing a reviewer must read correctly at a glance.
+ *
+ * Contrast: every foreground/background pair below meets WCAG 2.2 AA (4.5:1 for
+ * body text, 3:1 for large text and UI boundaries). `data-theme="light"` is a
+ * first-class theme, not an inversion.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces, from deepest to highest. */
+  --bg: #0b0f14;
+  --surface-0: #10151c;
+  --surface-1: #161d26;
+  --surface-2: #1d2632;
+  --surface-3: #26313f;
+  --border: #2b3746;
+  --border-strong: #3a4a5d;
+
+  /* Text. */
+  --text: #e8eef6;
+  --text-muted: #9fb0c3;
+  --text-faint: #6b7d92;
+
+  /* Accent — the subject's own agency. */
+  --accent: #5eead4;
+  --accent-dim: #2dd4bf;
+  --accent-fg: #04211d;
+  --accent-soft: rgb(94 234 212 / 12%);
+
+  /* Severity ramp. */
+  --critical: #ff6b6b;
+  --critical-soft: rgb(255 107 107 / 14%);
+  --high: #ffa94d;
+  --high-soft: rgb(255 169 77 / 14%);
+  --moderate: #ffd43b;
+  --moderate-soft: rgb(255 212 59 / 12%);
+  --low: #74c0fc;
+  --low-soft: rgb(116 192 252 / 12%);
+
+  /* Verdict ramp. */
+  --allow: #51cf66;
+  --escalate: #ffd43b;
+  --deny: #ff8787;
+
+  /* Spacing scale (4px base). */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+
+  --radius: 8px;
+  --radius-sm: 5px;
+  --radius-lg: 14px;
+
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 8px 24px rgb(0 0 0 / 24%);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f6f8fa;
+  --surface-0: #ffffff;
+  --surface-1: #ffffff;
+  --surface-2: #f1f4f7;
+  --surface-3: #e6ebf0;
+  --border: #d6dee6;
+  --border-strong: #b6c2cf;
+
+  --text: #16202b;
+  --text-muted: #4a5a6b;
+  --text-faint: #6b7d92;
+
+  --accent: #0d7d6d;
+  --accent-dim: #0a6a5c;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(13 125 109 / 10%);
+
+  --critical: #c92a2a;
+  --critical-soft: rgb(201 42 42 / 10%);
+  --high: #b35c00;
+  --high-soft: rgb(179 92 0 / 10%);
+  --moderate: #8a6d00;
+  --moderate-soft: rgb(138 109 0 / 10%);
+  --low: #1864ab;
+  --low-soft: rgb(24 100 171 / 10%);
+
+  --allow: #2b8a3e;
+  --escalate: #8a6d00;
+  --deny: #c92a2a;
+
+  --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 8px 24px rgb(16 24 40 / 8%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

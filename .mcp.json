@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/mcp-spec/main/schemas/client.json",
+  "name": "s-ai-soulbot",
+  "description": "consent-gated companion harness: Sentinel authority, Jātaka guardrail registry, consent continuity, T0-T6 conformance",
+  "mcpServers": {
+    "glama-gateway": {
+      "command": "glama-mcp",
+      "args": [],
+      "env": {
+        "GLAMA_API_KEY": "${GLAMA_API_KEY}",
+        "GLAMA_DEFAULT_MODEL": "openai/gpt-4o"
+      }
+    }
+  }
+}
