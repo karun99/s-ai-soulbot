@@ -5,6 +5,20 @@
   "description": "S-AI SoulBot \u2014 a consent-gated companion harness. Trust and resilience core with a J\u0101taka case-law guardrail registry, Sentinel authorization authority, and an authorized-session browser node.",
   "license": "MIT",
   "author": "Sai Karun Nandipati",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "soulbot",
+    "s-ai",
+    "browser-automation",
+    "consent",
+    "guardrails",
+    "jataka",
+    "sentinel",
+    "trust",
+    "llm",
+    "agent"
+  ],
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -20,6 +34,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "conformance": "tsx scripts/conformance.ts",
+    "mcp:stdio": "tsx mcp/stdio.ts",
     "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
     "dev:vercel": "vercel dev",
     "deploy": "vercel --prod"
