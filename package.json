@@ -35,7 +35,8 @@
     "test:coverage": "vitest run --coverage",
     "conformance": "tsx scripts/conformance.ts",
     "mcp:stdio": "tsx mcp/stdio.ts",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "mcp:smoke": "tsx scripts/mcp-smoke.ts",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run mcp:smoke && npm run build",
     "dev:vercel": "vercel dev",
     "deploy": "vercel --prod"
   },

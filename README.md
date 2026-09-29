@@ -84,9 +84,21 @@ src/ui/              React console: seven panels over the same core
 | `/api/consent` | GET, POST | `check` / `continuity` / `revoke`. |
 | `/api/guardrails` | GET, POST | The Jātaka registry, and its evaluation against declared facts. |
 | `/api/health` | GET | Liveness and build identity. |
+| `/api/mcp` | POST | MCP Streamable HTTP — the same tool surface as the stdio server, reachable by remote and browser clients. GET/DELETE answer 405; see [`docs/MCP_TRANSPORT.md`](docs/MCP_TRANSPORT.md). |
 | `/api/signature` | GET, POST | `derive` / `check`. There is no "fill" mode. |
 | `/api/trace` | GET, POST | Append a step to a flow's hash chain; read and verify a chain. |
 | `/api/validate` | GET, POST | Artifact validation for T4/T5. |
+
+### MCP
+
+SoulBot's tool surface (five read-only tools over the Jātaka registry,
+Sentinel, and T0–T6 conformance) is served over **two transports into one
+dispatcher** (`mcp/tools.ts`): stdio via `npm run mcp:stdio`, and MCP
+Streamable HTTP at `POST /api/mcp`. Both transports cannot drift, because
+neither owns the catalog. Set `SOULBOT_MCP_TOKEN` to require a bearer token on
+the HTTP endpoint. The decision, its three deliberate limitations, and the bugs
+that the shared module surfaced are recorded in
+[`docs/MCP_TRANSPORT.md`](docs/MCP_TRANSPORT.md).
 
 ### Console
 
@@ -140,9 +152,13 @@ npm run conformance  # T0–T6 from the CLI
 
 ## Tests
 
-136 tests across 11 suites — one per core module, plus integration suites for the API
-handlers and for resilience. Coverage thresholds: lines 70, functions 70, branches 60,
-statements 70.
+166 tests across 12 suites — one per core module, plus integration suites for the API
+handlers, resilience, and the MCP surface. Coverage thresholds: lines 70, functions 70,
+branches 60, statements 70. `tests/mcp.test.ts` (30 tests) asserts tool *values* — the
+per-pāramī counts sum to the registry size, every guardrail carries its rule text —
+because the server previously shipped correct-looking output that was wrong.
+`npm run mcp:smoke` additionally spawns the real stdio server and drives the handshake a
+client would.
 
 ## Configuration
 

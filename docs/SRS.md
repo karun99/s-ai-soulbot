@@ -283,7 +283,7 @@ messenger, browser node, connectors). This repository ships the **harness core**
 trust and resilience layer — so the totals here reflect what ships:
 
 * **Requirements:** 57 functional, 7 performance, 9 quality (this document).
-* **Tests:** 136 across 11 suites, all passing (Appendix G).
+* **Tests:** 166 across 12 suites, all passing (Appendix G).
 * **Guardrails:** 23 Jātaka precedents (Appendix D).
 
 Where the draft and the implementation disagreed (deployment stack, CLI, test count,

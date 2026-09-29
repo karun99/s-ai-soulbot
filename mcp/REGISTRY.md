@@ -11,12 +11,25 @@ modules the Vercel API uses.
 | Field | Value |
 |---|---|
 | name | `soulbot-mcp` |
-| command | `npm run mcp:stdio` (i.e. `tsx mcp/stdio.ts`) |
+| command (stdio) | `npm run mcp:stdio` (i.e. `tsx mcp/stdio.ts`) |
+| endpoint (HTTP) | `POST /api/mcp` (MCP Streamable HTTP) |
 | install | `npm ci` (Node >=20; tsx is a devDependency) |
-| transport | stdio, JSON-RPC 2.0, protocol `2024-11-05` |
+| transport | stdio · Streamable HTTP, JSON-RPC 2.0, protocol `2024-11-05` |
 | tools | `soulbot_status`, `soulbot_jataka`, `soulbot_conformance`, `soulbot_validate_recipe`, `soulbot_validate_flow` |
 | license | MIT (Sai Karun Nandipati) |
 | author | Sai Karun Nandipati — github.com/karun99 |
+
+Both transports call the single catalog and dispatcher in `mcp/tools.ts`, so they
+cannot serve different behaviour. The decision to add the HTTP transport, and its
+three deliberate limitations, are recorded in
+[`../docs/MCP_TRANSPORT.md`](../docs/MCP_TRANSPORT.md).
+
+### Tools are read-only and value-asserted
+
+Every tool delegates to `src/core`. `soulbot_status` reports a per-pāramī
+guardrail count that sums to the registry size, and `soulbot_jataka` returns each
+guardrail's assertion, trigger, prohibited action and recommendation —
+`tests/mcp.test.ts` asserts those values, not just their presence.
 
 ## Verify by hand
 
@@ -28,7 +41,20 @@ printf '%s\n' \
   | npx tsx mcp/stdio.ts
 ```
 
-Repo checks: `npm run typecheck` covers `mcp/stdio.ts` (tsc --noEmit).
+Over HTTP (after `npm run dev:vercel`, or against a deployment):
+
+```sh
+curl -s https://<deployment>/api/mcp?discovery
+curl -s -X POST https://<deployment>/api/mcp \
+  -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
+```
+
+Repo checks: `mcp/` **is** in `tsconfig.json` `include`, so `npm run typecheck`
+now genuinely covers `mcp/tools.ts`, `mcp/stdio.ts` and `api/mcp.ts`. (It did not
+before — the earlier version of this line claimed coverage that did not exist,
+and the server shipped three runtime bugs as a result. See
+`docs/MCP_TRANSPORT.md`.) `npm test` runs `tests/mcp.test.ts`.
 
 ## How it is seen in Glama
 
@@ -36,7 +62,9 @@ Glama builds every open-source server from the repo's `Dockerfile` in a sandbox,
 then introspects it over MCP and scores the tools (TDQS). This repo ships a
 `Dockerfile` (`node:20-slim`, `npm ci`, `CMD ["npm","run","mcp:stdio"]`) whose
 endpoint is the stdio server, so the sandbox can run the handshake above and
-register the five tools.
+register the five tools. Since the HTTP transport landed, a deployed instance
+also answers the same handshake at `/api/mcp`, so Glama can introspect a hosted
+endpoint without building the image at all.
 
 1. Sign in at glama.ai with GitHub (OAuth; must have write access to this repo).
 2. "Add your server" → https://github.com/karun99/s-ai-soulbot.

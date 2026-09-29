@@ -34,6 +34,9 @@ jobs:
       - name: Test
         run: npm run test
 
+      - name: MCP handshake (spawns the real stdio server)
+        run: npm run mcp:smoke
+
       - name: Conformance
         run: npm run conformance
 
@@ -73,3 +76,27 @@ jobs:
               console.log("T3 correctly failed on the scope-lying tool.")
             })()
           '
+
+  docker:
+    name: Dockerfile builds and answers the handshake
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # Glama builds this exact image in its sandbox. If it does not build
+      # here, the listing fails there, and the failure is invisible from the
+      # repo. The image's own RUN step asserts the handshake, so a successful
+      # build is also a successful introspection.
+      - name: Build
+        run: docker build -t soulbot-mcp:ci .
+
+      - name: The image answers tools/list
+        run: |
+          printf '%s\n' \
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}' \
+            '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+            | docker run -i --rm soulbot-mcp:ci | tee /tmp/tools.json
+          grep -q 'soulbot_status' /tmp/tools.json
+          grep -q 'soulbot_jataka' /tmp/tools.json
+

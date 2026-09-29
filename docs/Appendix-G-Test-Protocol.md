@@ -49,18 +49,22 @@ Shipped and passing in this repository (verified against the suite):
 | Conformance (T2–T6, report semantics) | 14 |
 | Recipe (T4/T5 validation, replay trust) | 15 |
 | API integration (config, guardrails, conformance, validate, http, rate limit) | 16 |
+| MCP surface (tool values, JSON-RPC dispatch, Streamable HTTP transport, transport security) | 30 |
 | Signature | 8 |
 | Trace (chain, verification, redaction, T5 matching) | 13 |
 | Jātaka (registry, evaluation) | 10 |
 | Pattern | 8 |
-| **Total** | **136 across 11 suites** |
+| **Total** | **166 across 12 suites** |
 
 Coverage thresholds: lines 70, functions 70, branches 60, statements 70.
 Run with `npm test` (development) or `npm run test:coverage` (with report).
 
 > The draft v3.0.0 set listed 95 tests across 11 categories. The shipped suite is
-> **136 tests across 11 suites**; this appendix supersedes the draft figure and the
-> per-category table above is the authoritative tally.
+> **166 tests across 12 suites**; this appendix supersedes the draft figure and the
+> per-category table above is the authoritative tally. The MCP suite was added when
+> the Streamable HTTP transport landed, and it is the reason three runtime bugs in
+> `mcp/stdio.ts` were found: `mcp/` had been absent from `tsconfig.json` `include`, so
+> the server had never been compiled or tested. See `docs/MCP_TRANSPORT.md`.
 
 ## G.4 Defect Management
 

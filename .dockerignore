@@ -1,0 +1,20 @@
+# Keep the build context to source only. Without this, `COPY . .` in the
+# Dockerfile would copy the host's node_modules (wrong platform, wrong
+# versions), the git history, and any local build output over what `npm ci`
+# just installed.
+
+node_modules
+dist
+coverage
+.vercel
+.git
+.gitignore
+.github
+*.log
+*.tsbuildinfo
+.vitest
+
+# Never ship local environment files into an image.
+.env
+.env.*
+!.env.example
