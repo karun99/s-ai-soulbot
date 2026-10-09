@@ -1,0 +1,32 @@
+{
+  "app": {
+    "name": "s-ai-soulbot",
+    "version": "3.0.0",
+    "description": "S-AI SoulBot \u2014 a consent-gated companion harness. Trust and resilience core with a J\u0101taka case-law guardrail registry, Sentinel authorization authority, and an authorized-session browser node."
+  },
+  "stack": "node",
+  "routes": [],
+  "pages": [],
+  "base_url": "http://localhost:3000",
+  "module": null,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "conformance": "tsx scripts/conformance.ts",
+    "mcp:stdio": "tsx mcp/stdio.ts",
+    "mcp:smoke": "tsx scripts/mcp-smoke.ts",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run mcp:smoke && npm run build",
+    "dev:vercel": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "server": "mcp-server/server.mjs",
+  "runner": "node",
+  "runner_cmd": "node"
+}
