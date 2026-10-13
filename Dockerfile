@@ -8,7 +8,7 @@
 # server runs from source on purpose — there is no build step to go stale
 # between what CI verified and what Glama introspects.
 
-FROM node:20-slim
+FROM node:26-slim
 
 # Run as the non-root user node already provides. A read-only tool server has no
 # reason to hold root, and a sandbox that runs everything as root is a sandbox
